@@ -7,7 +7,10 @@ class ArmorObject : public GameObject {
 public:
     ArmorObject(const char* name, const char* description, int defense);
 
+    static GameObject* create();
+
 private:
+    static const bool registered;
     int defense;
 };
 

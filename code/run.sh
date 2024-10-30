@@ -9,4 +9,6 @@ cmake ..
 
 cd ..
 
-make -C build -j32 && ./build/bin/cpp
+
+
+make -C build -j32 && ./build/bin/cpp $@
