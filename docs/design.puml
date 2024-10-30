@@ -1,0 +1,104 @@
+@startuml
+
+package "Backend" {
+    class Location {
+        + Location()
+
+        - name : char[]
+        - description : char[]
+    }
+
+    class LocationFactory {
+        + LocationFactory()
+        + createLocation() : Location*
+    }
+
+    class Enemy {
+        + Enemy()
+
+        - name : char[]
+        - description : char[]
+        - health : int
+        - damage : int
+        - experience : int
+    }
+
+    class EnemyFactory {
+        + EnemyFactory()
+        + createEnemy() : Enemy*
+    }
+
+    class GameObject {
+        + GameObject()
+
+        - name : char[]
+        - description : char[]
+    }
+
+    class GameObjectFactory {
+        + GameObjectFactory()
+        + createGameObject() : GameObject*
+    }
+
+    class GoldPiecesObject {
+        + GoldPiecesObject()
+
+        - value : int
+    }
+
+    class WeaponObject {
+        + WeaponObject()
+
+        - minDamage : int
+        - maxDamage : int
+    }
+
+    class ArmorObject {
+        + ArmorObject()
+
+        - defense : int
+    }
+
+    class ConsumableObject {
+        + ConsumableObject()
+
+    }
+
+    class HealthPotionObject {
+        + HealthPotionObject()
+
+        - healAmount : int
+    }
+
+    class ExperiencePotionObject {
+        + ExperiencePotionObject()
+
+        - experienceAmount : int
+    }
+
+    class TeleportationPotionObject {
+        + TeleportationPotionObject()
+    }
+
+TeleportationPotionObject --|> ConsumableObject
+ExperiencePotionObject --|> ConsumableObject
+HealthPotionObject --|> ConsumableObject
+
+ArmorObject --|> GameObject
+WeaponObject --|> GameObject
+GoldPiecesObject --|> GameObject
+ConsumableObject --|> GameObject
+
+GameObjectFactory --> GameObject
+LocationFactory --> Location
+
+Location --> "0.." GameObject
+Location --> "0.." Enemy
+
+EnemyFactory --> Enemy
+
+}
+
+
+
+@enduml
