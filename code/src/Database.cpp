@@ -1,5 +1,5 @@
 #include "Database.h"
-#include "MyString.h"
+#include "String.h"
 #include <cstring>
 
 Database::Database(const char* dbName) : db(nullptr), dbName(dbName) {}
@@ -35,7 +35,7 @@ bool Database::execute(const char* sql) {
     }
 }
 
-bool Database::executeQuery(const char* sql, MyVector<MyVector<MyString>>& results) {
+bool Database::executeQuery(const char* sql, Vector<Vector<String>>& results) {
     char* errMsg = nullptr;
     char** resultTable = nullptr;
     int rows, cols;
@@ -49,10 +49,10 @@ bool Database::executeQuery(const char* sql, MyVector<MyVector<MyString>>& resul
 
     // Populate results vector
     for (int row = 1; row <= rows; ++row) {
-        MyVector<MyString> rowData;
+        Vector<String> rowData;
         for (int col = 0; col < cols; ++col) {
             const char* cellValue = resultTable[(row * cols) + col];
-            rowData.push_back(MyString("NULL")); // Use custom String
+            rowData.push_back(String(cellValue ? cellValue : "NULL")); // Use custom String
         }
         results.push_back(rowData);
     }

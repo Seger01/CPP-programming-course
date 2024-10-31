@@ -1,13 +1,15 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include "String.h"
+
 class Enemy {
 public:
-    Enemy(const char* name, const char* description, int health, int damage, int experience);
+    Enemy(String name, String description, int health, int damage, int experience);
 
 private:
-    char name[50];
-    char description[200];
+    String name;
+    String description;
     int health;
     int damage;
     int experience;

@@ -1,14 +1,12 @@
 #include "GameObject.h"
 #include <cstring>
 
-GameObject::GameObject(const char* name, const char* description) {
-    strncpy(this->name, name, sizeof(this->name));
-    strncpy(this->description, description, sizeof(this->description));
-}
+GameObject::GameObject(String name, String description) : name(name), description(description) {}
 
-void GameObject::setData(const char* name, const char* description, int min, int max, int protection) {
-    strncpy(this->name, name, sizeof(this->name));
-    strncpy(this->description, description, sizeof(this->description));
+void GameObject::setData(String name, String description, int min, int max, int protection) {
+    this->name = name;
+    this->description = description;
+
     this->min = min;
     this->max = max;
     this->protection = protection;

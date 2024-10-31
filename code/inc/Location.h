@@ -1,21 +1,44 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
-#include <vector>
+#include "String.h"
+#include "Vector.h"
 
 class GameObject;
 class Enemy;
 
 class Location {
 public:
-    Location(const char* name, const char* description);
+    Location(int ID, String name, String description);
+    ~Location();
+
+    void addExit(int locationID, int direction);
+    void removeExit(int direction);
+
+    void addHiddenObject(GameObject* object);
+    void addVisibleObject(GameObject* object);
+
+    void removeHiddenObject(GameObject* object);
+    void removeVisibleObject(GameObject* object);
+
+    void addEnemy(Enemy* enemy);
+    void removeEnemy(Enemy* enemy);
+
+    String getName() const;
+    String getDescription() const;
 
 private:
-    char name[50];
-    char description[200];
+    String name;
+    String description;
 
-    std::vector<GameObject*> gameObjects;
-    std::vector<Enemy*> enemies;
+    Vector<GameObject*> hiddenObjects;
+    Vector<GameObject*> visibleObjects;
+
+    Vector<Enemy*> enemies;
+
+    int ID;
+
+    int exits[4];
 };
 
 #endif // LOCATION_H

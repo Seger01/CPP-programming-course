@@ -1,6 +1,13 @@
+#include <iostream>
+
+#include <cstring>
+#include <string>
+
 #include "Database.h"
 #include "GameObjectFactory.h"
-#include <iostream>
+#include "String.h"
+#include "TUI.h"
+#include "Vector.h"
 
 // main function with input args and return type int the one input argument is a
 // file path
@@ -17,11 +24,11 @@ int main(int argc, char* argv[]) {
     // std::cout << "File path: " << argv[1] << std::endl;
 
     // Create products using the factory
-    GameObject* armorObject = GameObjectFactory::instance().createProduct("ArmorObject");
-
-    if (armorObject) {
-        delete armorObject;
-    }
+    // GameObject* armorObject = GameObjectFactory::instance().createProduct("ArmorObject");
+    //
+    // if (armorObject) {
+    //     delete armorObject;
+    // }
     //
     // Database db("kerkersendraken.db");
     //
@@ -30,13 +37,13 @@ int main(int argc, char* argv[]) {
     // }
     //
     // // Query the table
-    // MyVector<MyVector<MyString>> results; // Using custom vector for results
+    // Vector<Vector<String>> results; // Using custom vector for results
     // const char* selectSQL = "SELECT * FROM Objecten;";
     // if (db.executeQuery(selectSQL, results)) {
     //     std::cout << "Query results:" << std::endl;
     //     for (size_t i = 0; i < results.size(); ++i) {
     //         for (size_t j = 0; j < results[i].size(); ++j) {
-    //             std::cout << results[i][j] << " "; // Use custom String
+    //             std::cout << results[i][j] << results[i][j].length() << " "; // Use custom String
     //         }
     //         std::cout << std::endl;
     //     }
@@ -44,45 +51,9 @@ int main(int argc, char* argv[]) {
     //
     // db.close();
 
-    // // test 2d vector of my vector of my string
-    // MyVector<MyVector<MyString>> results;
-    // MyVector<MyString> row1;
-    // row1.push_back(MyString("Hello"));
-    // row1.push_back(MyString("World"));
-    // results.push_back(row1);
+    TUI tui;
 
-    MyVector<MyVector<MyString>> cols;
-
-    MyString string = MyString("Hello");
-
-    string = "wat de fuk";
-
-    for (int i = 0; i < 100; i++) {
-        for (int j = 0; j < 5; j++) {
-            MyVector<MyString> row;
-            row.push_back(MyString("Hello"));
-            row.push_back(MyString("World"));
-
-            if (row[0].length() != 5) {
-                std::cout << "Length is not 5" << std::endl;
-            }
-            if (row[1].length() != 5) {
-                std::cout << "Length is not 5" << std::endl;
-            }
-
-            cols.push_back(row);
-        }
-    }
-
-    std::cout << "Size of cols: " << cols.size() << std::endl;
-
-    for (size_t i = 0; i < cols.size(); ++i) {
-        std::cout << "Cols size: " << cols[i].size() << std::endl;
-        for (size_t j = 0; j < cols[i].size(); ++j) {
-            std::cout << cols[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
+    tui.run();
 
     return 0;
 }

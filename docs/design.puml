@@ -80,6 +80,19 @@ package "Backend" {
         + TeleportationPotionObject()
     }
 
+    class Game {
+        + Game()
+
+        - player : Player
+        - locations : Location[]
+        - enemies : Enemy[]
+        - gameObjects : GameObject[]
+        - currentLocation : Location
+        - currentEnemy : Enemy
+        - currentGameObject : GameObject
+        - tui : TUI
+    }
+
 TeleportationPotionObject --|> ConsumableObject
 ExperiencePotionObject --|> ConsumableObject
 HealthPotionObject --|> ConsumableObject
@@ -96,6 +109,40 @@ Location --> "0.." GameObject
 Location --> "0.." Enemy
 
 EnemyFactory --> Enemy
+
+
+
+}
+
+
+package "Frontend" {
+    class TUI{
+        + TUI()
+        + displayLocation() : void
+        + displayEnemy() : void
+        + displayGameObject() : void
+        + displayPlayer() : void
+        + displayInventory() : void
+        + displayHelp() : void
+        + displayGameOver() : void
+        + displayGameWon() : void
+    }
+
+    class Player{
+        + Player()
+
+        - name : char[]
+        - health : int
+        - experience : int
+        - level : int
+        - location : Location*
+        - inventory : GameObject[]
+    }
+
+
+TUI --> Player
+TUI --> "1" Game
+
 
 }
 

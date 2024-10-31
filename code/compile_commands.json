@@ -9,12 +9,318 @@
       "-std=gnu++23",
       "-c",
       "-o",
+      "CMakeFiles/cpp_Lib.dir/src/Enemy.cpp.o",
+      "/home/seger/projects/cpp/code/src/Enemy.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/Enemy.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/Enemy.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/GameObjectFactory.cpp.o",
+      "/home/seger/projects/cpp/code/src/GameObjectFactory.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/GameObjectFactory.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/GameObjectFactory.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/GameData.cpp.o",
+      "/home/seger/projects/cpp/code/src/GameData.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/GameData.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/GameData.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/Location.cpp.o",
+      "/home/seger/projects/cpp/code/src/Location.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/Location.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/Location.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/EnemyFactory.cpp.o",
+      "/home/seger/projects/cpp/code/src/EnemyFactory.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/EnemyFactory.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/EnemyFactory.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/ConsumableObject.cpp.o",
+      "/home/seger/projects/cpp/code/src/ConsumableObject.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/ConsumableObject.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/ConsumableObject.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/HealthPotionObject.cpp.o",
+      "/home/seger/projects/cpp/code/src/HealthPotionObject.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/HealthPotionObject.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/HealthPotionObject.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/TUI.cpp.o",
+      "/home/seger/projects/cpp/code/src/TUI.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/TUI.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/TUI.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/Vector.cpp.o",
+      "/home/seger/projects/cpp/code/src/Vector.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/Vector.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/Vector.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/ArmorObject.cpp.o",
+      "/home/seger/projects/cpp/code/src/ArmorObject.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/ArmorObject.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/ArmorObject.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/LocationFactory.cpp.o",
+      "/home/seger/projects/cpp/code/src/LocationFactory.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/LocationFactory.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/LocationFactory.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/Game.cpp.o",
+      "/home/seger/projects/cpp/code/src/Game.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/Game.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/Game.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/GameObject.cpp.o",
+      "/home/seger/projects/cpp/code/src/GameObject.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/GameObject.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/GameObject.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/Database.cpp.o",
+      "/home/seger/projects/cpp/code/src/Database.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/Database.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/Database.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/String.cpp.o",
+      "/home/seger/projects/cpp/code/src/String.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/String.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/String.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/GoldPiecesObject.cpp.o",
+      "/home/seger/projects/cpp/code/src/GoldPiecesObject.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/GoldPiecesObject.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/GoldPiecesObject.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/TeleportationPotionObject.cpp.o",
+      "/home/seger/projects/cpp/code/src/TeleportationPotionObject.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/TeleportationPotionObject.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/TeleportationPotionObject.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
       "CMakeFiles/cpp_Lib.dir/src/main.cpp.o",
       "/home/seger/projects/cpp/code/src/main.cpp"
     ],
     "directory": "/home/seger/projects/cpp/code/build",
     "file": "/home/seger/projects/cpp/code/src/main.cpp",
     "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/main.cpp.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-I/home/seger/projects/cpp/code/inc",
+      "-g",
+      "-g",
+      "-O0",
+      "-std=gnu++23",
+      "-c",
+      "-o",
+      "CMakeFiles/cpp_Lib.dir/src/WeaponObject.cpp.o",
+      "/home/seger/projects/cpp/code/src/WeaponObject.cpp"
+    ],
+    "directory": "/home/seger/projects/cpp/code/build",
+    "file": "/home/seger/projects/cpp/code/src/WeaponObject.cpp",
+    "output": "/home/seger/projects/cpp/code/build/CMakeFiles/cpp_Lib.dir/src/WeaponObject.cpp.o"
   },
   {
     "arguments": [
