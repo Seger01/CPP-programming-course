@@ -35,6 +35,8 @@ public:
     String getName() const;
     String getDescription() const;
 
+    int getID() const;
+
 private:
     String name;
     String description;

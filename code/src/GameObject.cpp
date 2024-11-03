@@ -18,6 +18,8 @@ int GameObject::getMax() const { return max; }
 
 int GameObject::getValue() const { return value; }
 
+void GameObject::setName(String name) { this->name = name; }
+
 void GameObject::setData(String name, String description, int min, int max, int protection) {
     this->name = name;
     this->description = description;

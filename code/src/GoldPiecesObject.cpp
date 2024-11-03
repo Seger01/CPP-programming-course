@@ -11,7 +11,4 @@ GoldPiecesObject::GoldPiecesObject() : GameObject() {}
 GoldPiecesObject::GoldPiecesObject(String name, String description, int min, int max, int worth)
     : GameObject(name, description, min, max, worth) {}
 
-GameObject* GoldPiecesObject::create() {
-    std::cout << "Creating GoldPiecesObject" << std::endl;
-    return new GoldPiecesObject();
-}
+GameObject* GoldPiecesObject::create() { return new GoldPiecesObject(); }

@@ -23,6 +23,7 @@ public:
 
     virtual String getType() const { return type; }
 
+    virtual void setName(String name);
     virtual void setData(String name, String description, int min = 0, int max = 0, int value = 0);
 
 protected:

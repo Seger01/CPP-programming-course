@@ -131,3 +131,33 @@ bool String::operator==(const char* other) const {
     // Compare this string's data with the C-style string
     return std::strcmp(data, other) == 0;
 }
+
+void String::append(const String& other) {
+    // Call the append function with the other string's data
+    append(other.data);
+}
+
+void String::append(const char* str) {
+    if (!str || str[0] == '\0') {
+        return; // Nothing to append if str is null or empty
+    }
+
+    size_t strLength = std::strlen(str);
+    size_t newSize = size + strLength;
+
+    // Allocate new memory to hold the combined string
+    char* newData = new char[newSize + 1]; // +1 for the null terminator
+
+    // Copy existing data to newData
+    if (data) {
+        std::strcpy(newData, data);
+    }
+
+    // Concatenate the new string
+    std::strcpy(newData + size, str); // Start writing after the existing data
+
+    // Free old memory and update data and size
+    freeMemory();
+    data = newData;
+    size = newSize;
+}

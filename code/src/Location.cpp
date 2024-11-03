@@ -25,13 +25,7 @@ void Location::removeExit(int direction) { exits[direction] = -1; }
 
 void Location::addHiddenObject(GameObject* object) { hiddenObjects.push_back(object); }
 
-void Location::addVisibleObject(GameObject* object) {
-    visibleObjects.push_back(object);
-
-    for (int i = 0; i < visibleObjects.size(); ++i) {
-        std::cout << visibleObjects[i]->getName() << std::endl;
-    }
-}
+void Location::addVisibleObject(GameObject* object) { visibleObjects.push_back(object); }
 
 void Location::removeHiddenObject(GameObject* object) {
     for (int i = 0; i < hiddenObjects.size(); ++i) {
@@ -73,3 +67,5 @@ void Location::removeEnemy(Enemy* enemy) {
 String Location::getName() const { return name; }
 
 String Location::getDescription() const { return description; }
+
+int Location::getID() const { return ID; }

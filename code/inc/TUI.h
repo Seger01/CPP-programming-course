@@ -8,8 +8,10 @@
 class TUI {
 public:
     TUI();
+    TUI(std::string filename);
     ~TUI();
 
+    void init();
     void run();
 
 private:
@@ -30,6 +32,8 @@ private:
     void consume(String item);
     void godmode();
 
+    void createGameFromFile();
+
     // void printStats();
     // void printInventory();
     // void printMap();
@@ -39,12 +43,17 @@ private:
 
     // void clearScreen();
     // void moveCursor(int x, int y);
+
+private:
     String getInput();
+
+    void runEnemyTurns();
 
 private:
     Game game;
     Player player;
 
+    std::string xmlFilename = "";
     bool running;
 };
 

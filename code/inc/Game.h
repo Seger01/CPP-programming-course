@@ -17,14 +17,13 @@ public:
 
     void generateDungeon(int amountOfRooms);
     Location* getCurrentLocation();
+    void setLocations(Vector<Location*> locations);
 
     int amountOfLocations();
 
     void setNewCurrentLocation(int newLocation);
 
     GameObject* takeObject(String objectName);
-
-    void runEnemyTurns();
 
     // void look(String item);
     // void search(String item);
@@ -38,12 +37,21 @@ public:
     // void consume(String item);
     // void godmode();
 
-    Vector<Vector<String>> getObjectInfo();
+    void generateRooms(int amountOfRooms);
+    void generateObjectsInRooms(int amountOfRooms);
+    void generateEnemies(int amountOfRooms);
+
+    GameObject* getDefaultWeapon();
 
 private:
+    int getObjectIndex(String objectName, Vector<Vector<String>> objectInfo);
+
+    Vector<Vector<String>> getObjectInfo();
     Vector<Vector<String>> getRoomInfo();
     Vector<Vector<String>> getEnemiesInfo();
     // Vector<String> getRandomRoom(Vector<Vector<String>>& roomInfo);
+
+    GameObject* getObject(Vector<Vector<String>> objectInfo, int objectnr);
 
     int getRandomNumber(int min, int max);
 

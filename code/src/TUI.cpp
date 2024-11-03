@@ -9,58 +9,44 @@
 #include "GameObject.h"
 #include "GameObjectFactory.h"
 #include "HealthPotionObject.h"
+#include "LocationParser.h"
 #include "Random.h"
 #include "String.h"
 #include "TeleportationPotionObject.h"
 #include "WeaponObject.h"
 
-TUI::TUI() {
+TUI::TUI() { init(); }
+
+TUI::TUI(std::string filename) : xmlFilename(filename) { init(); }
+
+TUI::~TUI() {}
+
+void TUI::init() {
+
     running = false;
 
     game = Game();
     game.start();
     int amountOfRooms = 10;
-    game.generateDungeon(amountOfRooms);
 
-    player = Player();
-    Vector<Vector<String>> objectInfo = game.getObjectInfo();
+    if (xmlFilename != "") {
+        std::cout << "Creating game from file: " << xmlFilename << std::endl;
+        createGameFromFile();
 
-    int dolkIndex = -1;
-    for (int i = 0; i < objectInfo.size(); i++) {
-        if (objectInfo[i][0] == "dolk") {
-            dolkIndex = i;
-            break;
-        }
+    } else {
+        game.generateDungeon(amountOfRooms);
     }
 
-    GameObject* object = GameObjectFactory::instance().createObject(objectInfo[dolkIndex][2]);
+    player = Player();
 
-    String objectName = objectInfo[dolkIndex][0];
-    String objectDescription = objectInfo[dolkIndex][1];
-
-    int objectMin = (objectInfo[dolkIndex][3].empty() || objectInfo[dolkIndex][3] == "NULL")
-                        ? 0
-                        : std::stoi(objectInfo[dolkIndex][3].c_str());
-
-    int objectMax = (objectInfo[dolkIndex][4].empty() || objectInfo[dolkIndex][4] == "NULL")
-                        ? 0
-                        : std::stoi(objectInfo[dolkIndex][4].c_str());
-
-    int objectProtection = (objectInfo[dolkIndex][5].empty() || objectInfo[dolkIndex][5] == "NULL")
-                               ? 0
-                               : std::stoi(objectInfo[dolkIndex][5].c_str());
-
-    object->setData(objectName, objectDescription, objectMin, objectMax, objectProtection);
+    GameObject* object = game.getDefaultWeapon();
 
     player.addObject(std::unique_ptr<GameObject>(object));
     player.setEquippedWeapon(object->getName());
 }
 
-TUI::~TUI() {}
-
 void TUI::run() {
     std::cout << "Welcome to Kerkers en Draken!" << std::endl;
-    std::cout << "Type 'Help' for a list of commands." << std::endl;
 
     running = true;
 
@@ -105,6 +91,8 @@ void TUI::handleInput() {
     } else if (action == "Quit") {
         running = false;
     } else {
+        std::cout << "Invalid action." << std::endl;
+        std::cout << "Type 'Help' for a list of available actions." << std::endl;
     }
 }
 
@@ -113,7 +101,7 @@ void TUI::look(String item) {
     if (currentLocation == nullptr) {
         return;
     }
-
+    std::cout << "Location id " << currentLocation->getID() << std::endl;
     std::cout << "Location: " << currentLocation->getName() << std::endl;
     std::cout << "Description: " << currentLocation->getDescription() << std::endl;
     std::cout << std::endl;
@@ -147,6 +135,9 @@ void TUI::look(String item) {
 
     std::cout << "Enemies:" << std::endl;
     for (int i = 0; i < currentLocation->getEnemies().size(); i++) {
+        if (currentLocation->getEnemies()[i]->getHealth() == 0) {
+            std::cout << "Defeated ";
+        }
         std::cout << currentLocation->getEnemies()[i]->getName() << std::endl;
     }
     std::cout << std::endl;
@@ -167,28 +158,44 @@ void TUI::search(String item) {
         game.getCurrentLocation()->removeHiddenObject(object);
     }
 
+    runEnemyTurns();
+
     return;
 }
 
 void TUI::go(String direction) {
+    bool directionFound = false;
+    int newLocation = -1;
+
     if (direction == "North") {
         if (game.getCurrentLocation()->getExits()[0] != -1) {
-            game.setNewCurrentLocation(game.getCurrentLocation()->getExits()[0]);
+            newLocation = (game.getCurrentLocation()->getExits()[0]);
+            directionFound = true;
         }
     } else if (direction == "East") {
         if (game.getCurrentLocation()->getExits()[1] != -1) {
-            game.setNewCurrentLocation(game.getCurrentLocation()->getExits()[1]);
+            newLocation = (game.getCurrentLocation()->getExits()[1]);
+            directionFound = true;
         }
     } else if (direction == "South") {
         if (game.getCurrentLocation()->getExits()[2] != -1) {
-            game.setNewCurrentLocation(game.getCurrentLocation()->getExits()[2]);
+            newLocation = (game.getCurrentLocation()->getExits()[2]);
+            directionFound = true;
         }
     } else if (direction == "West") {
         if (game.getCurrentLocation()->getExits()[3] != -1) {
-            game.setNewCurrentLocation(game.getCurrentLocation()->getExits()[3]);
+            newLocation = (game.getCurrentLocation()->getExits()[3]);
+            directionFound = true;
         }
     } else {
         std::cout << "Invalid direction." << std::endl;
+    }
+
+    if (directionFound) {
+        runEnemyTurns();
+
+        game.setNewCurrentLocation(newLocation);
+        std::cout << "Moved to new location." << std::endl;
     }
 }
 
@@ -302,7 +309,7 @@ void TUI::inspect(String item) {
         for (int i = 0; i < currentEnemies.size(); i++) {
             if (currentEnemies[i]->getName() == item) {
                 if (currentEnemies[i]->getHealth() == 0) {
-                    std::cout << currentEnemies[i]->getName() << std::endl;
+                    std::cout << "Defeated " << currentEnemies[i]->getName() << std::endl;
                     std::cout << currentEnemies[i]->getDescription() << std::endl;
                     std::cout << "Moving hidden items from enemy to visible objects in the location." << std::endl;
 
@@ -336,7 +343,7 @@ void TUI::attack(String enemy) {
             if (player.getEquippedWeapon() != nullptr) {
                 if (Random::getInstance().generateIntInRange(0, 100) > player.getHitChancePercent()) {
                     std::cout << "Missed attack." << std::endl;
-                    return;
+                    break;
                 }
                 int damage = Random::getInstance().generateIntInRange(player.getEquippedWeapon()->getMin(),
                                                                       player.getEquippedWeapon()->getMax());
@@ -345,20 +352,18 @@ void TUI::attack(String enemy) {
                 if (currentEnemies[i]->getHealth() <= 0) {
                     std::cout << "Defeated " << currentEnemies[i]->getName() << std::endl;
                     currentEnemies[i]->setHealth(0);
-                    // while (currentEnemies[i]->getInventory().size() > 0) {
-                    //     GameObject* object = currentEnemies[i]->getInventory()[0];
-                    //     game.getCurrentLocation()->addVisibleObject(object);
-                    //     currentEnemies[i]->removeObject(object);
-                    // }
                 }
             } else {
                 std::cout << "No weapon equipped." << std::endl;
             }
-            return;
+            break;
+        }
+        if (i == currentEnemies.size() - 1) {
+            std::cout << "Enemy not found." << std::endl;
         }
     }
 
-    std::cout << "Enemy not found." << std::endl;
+    runEnemyTurns();
 }
 
 void TUI::equip(String item) {
@@ -368,6 +373,7 @@ void TUI::equip(String item) {
         if (inventory[i]->getName() == item) {
             if (dynamic_cast<ArmorObject*>(inventory[i].get())) {
                 player.setEquippedArmor(item);
+                runEnemyTurns();
                 return;
             } else if (dynamic_cast<WeaponObject*>(inventory[i].get())) {
                 player.setEquippedWeapon(item);
@@ -382,7 +388,7 @@ void TUI::equip(String item) {
 void TUI::wait() {
     std::cout << "Waiting..." << std::endl;
 
-    game.runEnemyTurns();
+    runEnemyTurns();
 }
 
 void TUI::consume(String item) {
@@ -396,6 +402,7 @@ void TUI::consume(String item) {
                     Random::getInstance().generateIntInRange(inventory[i]->getMin(), inventory[i]->getMax());
                 player.setHealth(player.getHealth() + healthRestored);
                 std::cout << "Restored " << healthRestored << " health points." << std::endl;
+                player.removeObject(inventory[i]);
                 return;
             } else if (dynamic_cast<ExperiencePotionObject*>(inventory[i].get())) {
                 int hitChancePercent = player.getHitChancePercent();
@@ -403,6 +410,8 @@ void TUI::consume(String item) {
                     player.setHitChancePercent(hitChancePercent + Random::getInstance().generateIntInRange(
                                                                       inventory[i]->getMin(), inventory[i]->getMax()));
                     std::cout << "Increased attack chance" << std::endl;
+
+                    player.removeObject(inventory[i]);
                 } else {
                     std::cout << "Attack chance already at maximum." << std::endl;
                 }
@@ -410,6 +419,7 @@ void TUI::consume(String item) {
             } else if (dynamic_cast<TeleportationPotionObject*>(inventory[i].get())) {
                 std::cout << "Teleporting to a random location." << std::endl;
                 game.setNewCurrentLocation(Random::getInstance().generateIntInRange(0, game.amountOfLocations() - 1));
+                player.removeObject(inventory[i]);
                 return;
             } else {
                 std::cout << "Consumed " << item << std::endl;
@@ -426,6 +436,22 @@ void TUI::godmode() {
 
     player.setHealth(99999999);
     player.setHitChancePercent(100);
+}
+
+void TUI::createGameFromFile() {
+    LocationParser parser(xmlFilename);
+    std::cout << "Parsing XML file: " << xmlFilename << std::endl;
+    std::vector<Location*> locations = parser.parse();
+    std::cout << "Done parsing XML file." << std::endl;
+    Vector<Location*> newLocations;
+
+    for (int i = 0; i < locations.size(); i++) {
+        newLocations.push_back(locations[i]);
+    }
+
+    std::cout << "Setting locations." << std::endl;
+
+    game.setLocations(newLocations);
 }
 
 void TUI::printHelp() {
@@ -464,6 +490,32 @@ void TUI::printHelp() {
     std::cout << "  Godmode : Toggles 'godmode' where player cannot lose health or miss attacks.\n";
     std::cout << "  Quit : Ends the game and closes the application properly to reveal any memory leaks.\n";
     std::cout << "\n* Indicates an action that ends the player's turn.\n";
+}
+
+void TUI::runEnemyTurns() {
+    // retrieve enemies from current location
+    Vector<Enemy*>& currentEnemies = game.getCurrentLocation()->getEnemies();
+    for (int i = 0; i < currentEnemies.size(); i++) {
+        // check if enemy has health
+        if (currentEnemies[i]->getHealth() > 0) {
+            // enemy attacks player
+            if (Random::getInstance().generateIntInRange(0, 100) > currentEnemies[i]->getHitChancePercent()) {
+                std::cout << currentEnemies[i]->getName() << " missed attack." << std::endl;
+            } else {
+                int damage = Random::getInstance().generateIntInRange(currentEnemies[i]->getMinDamage(),
+                                                                      currentEnemies[i]->getMaxDamage());
+                damage =
+                    (player.getEquippedArmor() != nullptr) ? damage - player.getEquippedArmor()->getValue() : damage;
+
+                if (damage < 0) {
+                    damage = 0;
+                }
+
+                player.setHealth(player.getHealth() - damage);
+                std::cout << currentEnemies[i]->getName() << " dealt " << damage << " damage to player." << std::endl;
+            }
+        }
+    }
 }
 
 String TUI::getInput() {

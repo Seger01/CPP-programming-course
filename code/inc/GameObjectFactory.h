@@ -19,13 +19,19 @@ public:
     bool registerObject(String id, CreatorFunc creator);
 
     // Creates a product based on the string ID
-    GameObject* createObject(String id) const;
+    GameObject* createObject(String id, String objectName);
 
 private:
+    int objectNameSeen(String objectName);
+    void increaseObjectNameSeen(String objectName);
     GameObjectFactory() : m_registeredCount(0) {}
 
     Vector<String> m_ids;
     Vector<CreatorFunc> m_creators;
+
+    Vector<String> objectNames;
+    Vector<int> objectNameAmounts;
+
     int m_registeredCount;
 };
 

@@ -8,6 +8,7 @@
 #include "Directions.h"
 #include "Enemy.h"
 #include "GameObjectFactory.h"
+#include "LocationParser.h"
 #include "Random.h"
 
 Game::Game() : db("kerkersendraken.db"), currentLocation(0) {}
@@ -35,6 +36,34 @@ Location* Game::getCurrentLocation() {
     return locations[currentLocation];
 }
 
+void Game::setLocations(Vector<Location*> locations) {
+    this->locations = locations;
+    Vector<Vector<String>> objectInfo = getObjectInfo();
+
+    for (int i = 0; i < locations.size(); i++) {
+        for (int j = 0; j < locations[i]->getVisibleObjects().size(); j++) {
+            std::cout << "getting object index of object name: " << locations[i]->getVisibleObjects()[j]->getName()
+                      << std::endl;
+            int objectnr = getObjectIndex(locations[i]->getVisibleObjects()[j]->getName(), objectInfo);
+            std::cout << "Object index: " << objectnr << std::endl;
+
+            std::cout << "getting object" << std::endl;
+            GameObject* object = getObject(objectInfo, objectnr);
+
+            delete locations[i]->getVisibleObjects()[j];
+
+            locations[i]->getVisibleObjects()[j] = object;
+        }
+
+        for (int j = 0; j < locations[i]->getHiddenObjects().size(); j++) {
+        }
+
+        for (int j = 0; j < locations[i]->getEnemies().size(); j++) {
+            locations[i]->getEnemies()[j]->setHealth(100);
+        }
+    }
+}
+
 int Game::amountOfLocations() { return locations.size(); }
 
 int Game::getRandomNumber(int min, int max) { return Random::getInstance().generateIntInRange(min, max); }
@@ -57,16 +86,45 @@ GameObject* Game::takeObject(String objectName) {
     return nullptr;
 }
 
-void Game::runEnemyTurns() {
-    Vector<Enemy*>& currentEnemies = locations[currentLocation]->getEnemies();
-    for (int i = 0; i < currentEnemies.size(); i++) {
-        // Placeholder for enemy turn logic
+GameObject* Game::getDefaultWeapon() {
+    Vector<Vector<String>> objectInfo = getObjectInfo();
+
+    int dolkIndex = -1;
+    for (int i = 0; i < objectInfo.size(); i++) {
+        if (objectInfo[i][0] == "dolk") {
+            dolkIndex = i;
+            break;
+        }
     }
+
+    String objectName = objectInfo[dolkIndex][0];
+    String objectDescription = objectInfo[dolkIndex][1];
+
+    int objectMin = (objectInfo[dolkIndex][3].empty() || objectInfo[dolkIndex][3] == "NULL")
+                        ? 0
+                        : std::stoi(objectInfo[dolkIndex][3].c_str());
+
+    int objectMax = (objectInfo[dolkIndex][4].empty() || objectInfo[dolkIndex][4] == "NULL")
+                        ? 0
+                        : std::stoi(objectInfo[dolkIndex][4].c_str());
+
+    int objectProtection = (objectInfo[dolkIndex][5].empty() || objectInfo[dolkIndex][5] == "NULL")
+                               ? 0
+                               : std::stoi(objectInfo[dolkIndex][5].c_str());
+
+    GameObject* object = GameObjectFactory::instance().createObject(objectInfo[dolkIndex][2], objectName);
+
+    object->setData(object->getName(), objectDescription, objectMin, objectMax, objectProtection);
+    return object;
 }
 
 void Game::generateDungeon(int amountOfRooms) {
-    // Placeholder for dungeon generation logic
+    generateRooms(amountOfRooms);
+    generateObjectsInRooms(amountOfRooms);
+    generateEnemies(amountOfRooms);
+}
 
+void Game::generateRooms(int amountOfRooms) {
     Vector<Vector<String>> roomInfo = getRoomInfo();
 
     for (int i = 0; i < amountOfRooms; i++) {
@@ -77,13 +135,6 @@ void Game::generateDungeon(int amountOfRooms) {
         locations.push_back(new Location(i, room[0], room[1]));
     }
 
-    // // Create locations with unique IDs
-    // for (int i = 0; i < numberOfLocations; ++i) {
-    //     String name = "Location " + std::to_string(i + 1); // or use any naming convention
-    //     String description = "This is the description for " + name;
-    //     locations.push_back(new Location(i, name, description));
-    // }
-    //
     // Create a spanning tree for guaranteed connectivity
     for (int i = 1; i < amountOfRooms; ++i) {
         int direction = getRandomNumber(0, 3);   // Random direction for the exit (0: North, 1: West, 2: South, 3:
@@ -109,35 +160,43 @@ void Game::generateDungeon(int amountOfRooms) {
             }
         }
     }
+}
 
+GameObject* Game::getObject(Vector<Vector<String>> objectInfo, int objectnr) {
+
+    String objectName = objectInfo[objectnr][0];
+    String objectDescription = objectInfo[objectnr][1];
+
+    int objectMin = (objectInfo[objectnr][3].empty() || objectInfo[objectnr][3] == "NULL")
+                        ? 0
+                        : std::stoi(objectInfo[objectnr][3].c_str());
+
+    int objectMax = (objectInfo[objectnr][4].empty() || objectInfo[objectnr][4] == "NULL")
+                        ? 0
+                        : std::stoi(objectInfo[objectnr][4].c_str());
+
+    int objectProtection = (objectInfo[objectnr][5].empty() || objectInfo[objectnr][5] == "NULL")
+                               ? 0
+                               : std::stoi(objectInfo[objectnr][5].c_str());
+
+    GameObject* object = GameObjectFactory::instance().createObject(objectInfo[objectnr][2], objectName);
+
+    object->setData(object->getName(), objectDescription, objectMin, objectMax, objectProtection);
+
+    return object;
+}
+
+void Game::generateObjectsInRooms(int amountOfRooms) {
     Vector<Vector<String>> objectInfo = getObjectInfo();
 
     for (int i = 0; i < amountOfRooms; i++) {
-
         int amountOfVisibleObjects = getRandomNumber(0, 3);
         int amountOfHiddenObjects = getRandomNumber(0, 2);
 
         for (int j = 0; j < amountOfVisibleObjects; j++) {
             int objectnr = getRandomNumber(0, objectInfo.size() - 1);
 
-            GameObject* object = GameObjectFactory::instance().createObject(objectInfo[objectnr][2]);
-
-            String objectName = objectInfo[objectnr][0];
-            String objectDescription = objectInfo[objectnr][1];
-
-            int objectMin = (objectInfo[objectnr][3].empty() || objectInfo[objectnr][3] == "NULL")
-                                ? 0
-                                : std::stoi(objectInfo[objectnr][3].c_str());
-
-            int objectMax = (objectInfo[objectnr][4].empty() || objectInfo[objectnr][4] == "NULL")
-                                ? 0
-                                : std::stoi(objectInfo[objectnr][4].c_str());
-
-            int objectProtection = (objectInfo[objectnr][5].empty() || objectInfo[objectnr][5] == "NULL")
-                                       ? 0
-                                       : std::stoi(objectInfo[objectnr][5].c_str());
-
-            object->setData(objectName, objectDescription, objectMin, objectMax, objectProtection);
+            GameObject* object = getObject(objectInfo, objectnr);
 
             locations[i]->addVisibleObject(object);
         }
@@ -145,28 +204,15 @@ void Game::generateDungeon(int amountOfRooms) {
         for (int j = 0; j < amountOfHiddenObjects; j++) {
             int objectnr = getRandomNumber(0, objectInfo.size() - 1);
 
-            GameObject* object = GameObjectFactory::instance().createObject(objectInfo[objectnr][2]);
-
-            String objectName = objectInfo[objectnr][0];
-            String objectDescription = objectInfo[objectnr][1];
-
-            int objectMin = (objectInfo[objectnr][3].empty() || objectInfo[objectnr][3] == "NULL")
-                                ? 0
-                                : std::stoi(objectInfo[objectnr][3].c_str());
-
-            int objectMax = (objectInfo[objectnr][4].empty() || objectInfo[objectnr][4] == "NULL")
-                                ? 0
-                                : std::stoi(objectInfo[objectnr][4].c_str());
-
-            int objectProtection = (objectInfo[objectnr][5].empty() || objectInfo[objectnr][5] == "NULL")
-                                       ? 0
-                                       : std::stoi(objectInfo[objectnr][5].c_str());
-
-            object->setData(objectName, objectDescription, objectMin, objectMax, objectProtection);
+            GameObject* object = getObject(objectInfo, objectnr);
 
             locations[i]->addHiddenObject(object);
         }
     }
+}
+
+void Game::generateEnemies(int amountOfRooms) {
+    Vector<Vector<String>> objectInfo = getObjectInfo();
 
     int amountOfEnemies = std::ceil(amountOfRooms / 3);
     Vector<Vector<String>> enemiesInfo = getEnemiesInfo();
@@ -202,40 +248,33 @@ void Game::generateDungeon(int amountOfRooms) {
         Enemy* enemy = nullptr;
         enemy = new Enemy(enemyName, enemyDiscription, health, hitChangePercent, minDamage, maxDamage);
 
-        int minEnemyObjects = 2;
-        int maxEnemyObjects = 5;
-        // int minEnemyObjects = enemiesInfo[enemyType][2].empty() ? 0 : std::stoi(enemiesInfo[enemyType][2].c_str());
-        // int maxEnemyObjects = enemiesInfo[enemyType][3].empty() ? 0 : std::stoi(enemiesInfo[enemyType][3].c_str());
+        // int minEnemyObjects = 2;
+        // int maxEnemyObjects = 5;
+        int minEnemyObjects = enemiesInfo[enemyType][2].empty() ? 0 : std::stoi(enemiesInfo[enemyType][2].c_str());
+        int maxEnemyObjects = enemiesInfo[enemyType][3].empty() ? 0 : std::stoi(enemiesInfo[enemyType][3].c_str());
 
         // generate a random amount of objects for the enemy
         int amountOfObjects = getRandomNumber(minEnemyObjects, maxEnemyObjects);
         for (int i = 0; i < amountOfObjects; i++) {
             int objectnr = getRandomNumber(0, objectInfo.size() - 1);
 
-            GameObject* object = GameObjectFactory::instance().createObject(objectInfo[objectnr][2]);
-
-            String objectName = objectInfo[objectnr][0];
-            String objectDescription = objectInfo[objectnr][1];
-
-            int objectMin = (objectInfo[objectnr][3].empty() || objectInfo[objectnr][3] == "NULL")
-                                ? 0
-                                : std::stoi(objectInfo[objectnr][3].c_str());
-
-            int objectMax = (objectInfo[objectnr][4].empty() || objectInfo[objectnr][4] == "NULL")
-                                ? 0
-                                : std::stoi(objectInfo[objectnr][4].c_str());
-
-            int objectProtection = (objectInfo[objectnr][5].empty() || objectInfo[objectnr][5] == "NULL")
-                                       ? 0
-                                       : std::stoi(objectInfo[objectnr][5].c_str());
-
-            object->setData(objectName, objectDescription, objectMin, objectMax, objectProtection);
+            GameObject* object = getObject(objectInfo, objectnr);
 
             enemy->addObject(object);
         }
 
         locations[locationnr]->addEnemy(enemy);
     }
+}
+
+int Game::getObjectIndex(String objectName, Vector<Vector<String>> objectInfo) {
+    for (int i = 0; i < objectInfo.size(); i++) {
+        if (objectInfo[i][0] == objectName) {
+            return i;
+        }
+    }
+
+    return -1;
 }
 
 Vector<Vector<String>> Game::getEnemiesInfo() {

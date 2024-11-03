@@ -24,6 +24,9 @@ public:
     bool operator==(const String& other) const; // Compare with another String
     bool operator==(const char* other) const;   // Compare with a C-style string
 
+    void append(const String& other); // Append another String
+    void append(const char* str);     // Append a C-style string
+
 private:
     char* data;  // Pointer to dynamically allocated string
     size_t size; // Length of the string
