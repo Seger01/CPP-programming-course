@@ -43,8 +43,12 @@ public:
 
     GameObject* getDefaultWeapon();
 
+    void addScoreToDB(String playerName, int score);
+    Vector<Vector<String>> getLeaderboardEntries();
+
 private:
     int getObjectIndex(String objectName, Vector<Vector<String>> objectInfo);
+    int getEnemyIndex(String objectName, Vector<Vector<String>> enemyInfo);
 
     Vector<Vector<String>> getObjectInfo();
     Vector<Vector<String>> getRoomInfo();
@@ -52,6 +56,7 @@ private:
     // Vector<String> getRandomRoom(Vector<Vector<String>>& roomInfo);
 
     GameObject* getObject(Vector<Vector<String>> objectInfo, int objectnr);
+    Enemy* getEnemy(Vector<Vector<String>> objectInfo, Vector<Vector<String>> enemiesInfo, int objectnr);
 
     int getRandomNumber(int min, int max);
 

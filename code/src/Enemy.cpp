@@ -19,6 +19,17 @@ int Enemy::getMinDamage() const { return minDamage; }
 
 int Enemy::getMaxDamage() const { return maxDamage; }
 
+void Enemy::setName(String name) { this->name = name; }
+
+void Enemy::setData(String name, String description, int health, int hitChancePercent, int minDamage, int maxDamage) {
+    this->name = name;
+    this->description = description;
+    this->health = health;
+    this->hitChancePercent = hitChancePercent;
+    this->minDamage = minDamage;
+    this->maxDamage = maxDamage;
+}
+
 Vector<GameObject*>& Enemy::getInventory() { return inventory; }
 
 void Enemy::addObject(GameObject* gameObject) { inventory.push_back(gameObject); }

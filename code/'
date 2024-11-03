@@ -7,7 +7,6 @@
 #include "ArmorObject.h"
 #include "Directions.h"
 #include "Enemy.h"
-#include "EnemyFactory.h"
 #include "GameObjectFactory.h"
 #include "LocationParser.h"
 #include "Random.h"
@@ -133,26 +132,24 @@ GameObject* Game::getDefaultWeapon() {
 }
 
 void Game::addScoreToDB(String playerName, int score) {
-    // Prepare the SQL insert statement with direct values
-    std::string insertSQL = "INSERT INTO Leaderboard (naam, goudstukken) VALUES ('" + std::string(playerName.c_str()) +
-                            "', " + std::to_string(score) + ");";
+    void Game::addToLeaderboard(const String& playerName, int score) {
+        // Prepare the SQL insert statement with direct values
+        std::string insertSQL =
+            "INSERT INTO leaderboard (name, score) VALUES ('" + playerName + "', " + std::to_string(score) + ");";
 
-    // Use your db object to execute the insert statement
-    if (!db.execute(insertSQL.c_str())) {
-        std::cout << "Error inserting into leaderboard." << std::endl;
-    } else {
+        // Use your db object to execute the insert statement
+        if (!db.executeQuery(insertSQL.c_str())) {
+            std::cout << "Error inserting into leaderboard." << std::endl;
+        } else {
+            std::cout << "Successfully added " << playerName << " with score " << score << " to the leaderboard."
+                      << std::endl;
+        }
     }
 }
-Vector<Vector<String>> Game::getLeaderboardEntries() {
-    Vector<Vector<String>> leaderboardEntries;
 
-    // Query the leaderboard table
-    const char* selectSQL = "SELECT * FROM Leaderboard ORDER BY goudstukken DESC LIMIT 10;";
-    if (db.executeQuery(selectSQL, leaderboardEntries) == false) {
-        std::cout << "Error querying leaderboard." << std::endl;
-    }
-
-    return leaderboardEntries;
+Vector<String> Game::getHighScores() {
+    // Placeholder for getting high scores from database
+    return Vector<String>();
 }
 
 void Game::generateDungeon(int amountOfRooms) {
@@ -234,10 +231,10 @@ Enemy* Game::getEnemy(Vector<Vector<String>> objectInfo, Vector<Vector<String>> 
                         : std::stoi(enemiesInfo[enemyType][7].c_str());
 
     Enemy* enemy = nullptr;
+    enemy = new Enemy(enemyName, enemyDiscription, health, hitChangePercent, minDamage, maxDamage);
 
-    enemy = EnemyFactory::instance().createEnemy(enemyName);
-    enemy->setData(enemy->getName(), enemyDiscription, health, hitChangePercent, minDamage, maxDamage);
-
+    // int minEnemyObjects = 2;
+    // int maxEnemyObjects = 5;
     int minEnemyObjects = enemiesInfo[enemyType][2].empty() ? 0 : std::stoi(enemiesInfo[enemyType][2].c_str());
     int maxEnemyObjects = enemiesInfo[enemyType][3].empty() ? 0 : std::stoi(enemiesInfo[enemyType][3].c_str());
 

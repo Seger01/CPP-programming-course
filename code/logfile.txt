@@ -1,0 +1,1622 @@
+Welcome to Kerkers en Draken! > Help
+  Available Actions:
+  Look : Shows the location's description with visible objects, all possible exits, and any enemies present.
+  Search* : Moves hidden objects in the current location to visible objects, except those associated with enemies here.
+  Go <north|south|east|west>* : If there's an exit in the chosen direction, move there. If enemies are present, they each attack once before moving.
+  Take <OBJECT> : Moves a visible object from the location to the player. For 'gold coins', add to the player’s total and delete the object.
+  Drop <OBJECT> : Moves an object from the player to visible objects in the current location.
+  Inspect <OBJECT> : Shows description of the object if visible in the location or held by the player.
+  Inspect <ENEMY> :
+    If enemy has health: Shows the enemy's description (if present in the location).
+    If enemy has 0 health: Shows the description, and moves hidden items from the enemy to visible objects in the location.
+  Inspect Self : Displays player stats: health, attack chance, gold, equipped weapon, armor, and inventory.
+  Attack <ENEMY>* : Attack the specified enemy with the equipped weapon.
+  Equip <OBJECT:ARMOR>* : If player owns the armor, equip it. Previously worn armor becomes a visible object in the location.
+  Equip <OBJECT:WEAPON> : If player owns the weapon, equip it. Previously held weapon becomes a visible object in the location.
+  Wait* : Skip the turn. Enemies may attack and move.
+  Consume <OBJECT:CONSUMABLE> : Effects vary based on potion type:
+    Health Elixir: Restores 5-15 health points.
+    Experience Potion: Increases attack chance by +10%, up to 90% max.
+    Teleportation Potion: Teleports player to a random location.
+  Help : Shows this list of available actions.
+  Godmode : Toggles 'godmode' where player cannot lose health or miss attacks.
+  Quit : Ends the game and closes the application properly to reveal any memory leaks.
+
+* Indicates an action that ends the player's turn.
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: Seger
+ > Quit
+Game over.
+Final score: 0
+4: adlfkj
+1: Test
+2: Test2
+5: 1
+3: 1234
+6: 
+Thanks for playing!
+Play again(y/n): n
+Welcome to Kerkers en Draken! 
+Give player name: Seger
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat dealt 1 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+Player has died.
+Game over.
+Final score: 0
+4: adlfkj
+1: Test
+2: Test2
+5: 1
+3: 1234
+6: 
+7: Seger
+Thanks for playing!
+Play again(y/n): Wait
+Game over.
+Final score: 0
+4: adlfkj
+1: Test
+2: Test2
+5: 1
+3: 1234
+6: 
+7: Seger
+8: Seger
+Thanks for playing!
+Play again(y/n): n
+Welcome to Kerkers en Draken! 
+Give player name: Seger2
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat dealt 3 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+Player has died.
+Game over.
+Final score: 0
+4: adlfkj
+1: Test
+2: Test2
+5: 1
+3: 1234
+6: 
+7: Seger
+8: Seger
+9: Seger2
+Thanks for playing!
+Play again(y/n): n
+Game over.
+Final score: 0
+4: adlfkj
+1: Test
+2: Test2
+5: 1
+3: 1234
+6: 
+7: Seger
+8: Seger
+9: Seger2
+10: Seger2
+Thanks for playing!
+Play again(y/n): n
+Welcome to Kerkers en Draken! 
+Give player name: Seger234
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Search
+Searched
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+klein levenselixer
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+
+ > Take klein levenselixer
+Taking klein levenselixer
+Adding klein levenselixer to inventory.
+ > Consume klein levenselixer
+Consuming klein levenselixer
+Restored 1 health points.
+ > Inspect Self
+  Player stats:
+  Health: 21
+  Attack chance: 40%
+  Gold: 0
+
+  Equipped weapon: dolk
+  Equipped armor: None
+
+  Inventory:
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > V
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > V
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > v
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 1 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 3 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 3 damage to player.
+Player has died.
+Game over.
+Final score: 0
+adlfkj: 2234
+Test: 100
+Test2: 90
+1: 1
+1234: 0
+: 0
+Seger: 0
+Seger: 0
+Seger2: 0
+Seger2: 0
+Thanks for playing!
+Play again(y/n): y
+Welcome to Kerkers en Draken! 
+Give player name: Sasdlkfj
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go Nort	
+Invalid direction.
+ > Go North
+Moved to new location.
+ > Lo
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Go West
+Grote Rat missed attack.
+Grote Rat missed attack.
+Moved to new location.
+ > Look
+Location id 4
+Location: Torendeur West
+Description: Je staat voor de deur van de Westertoren. Noord is de stal. Je kunt ook oost de binnenplaats oplopen.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 7
+East
+Location ID: 2
+West
+Location ID: 6
+
+Enemies:
+Skeletstrijder
+
+Hidden objects:
+
+ > Inspect Skeletstrijder
+Skeletstrijder
+Geanimeerde skeletten van gevallen soldaten, bewapend met simpele wapens. Duurzaam maar niet erg sterk.
+Health: 8
+Hit chance: 12%
+Min damage: 1
+Max damage: 6
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: adflkjasdf
+ > Go North
+Moved to new location.
+ > Wait
+Waiting...
+ > Wait
+Waiting...
+ > Wait
+Waiting...
+ > Wait
+Waiting...
+ > Wait
+Waiting...
+ > Look
+Location id 9
+Location: De Aderen van de Aarde
+Description: Een doolhofachtig netwerk van tunnels diep onder het oppervlak, waar rivieren van goud en edelstenen als bloed stromen.
+
+Visible objects:
+kleine teleportatiedrank
+middelgrote ervaringsdrank1
+roestig zwaard
+
+Exits:
+North
+Location ID: 0
+East
+Location ID: 2
+South
+Location ID: 6
+
+Enemies:
+
+Hidden objects:
+bastaardzwaard1
+hard leren wapennrusting
+
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: asdflkjadskfasdljaslkdfj
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > V
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > V
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 3 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 1 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 3 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Player has died.
+Game over.
+Final score: 0
+adlfkj: 2234
+Test: 100
+Test2: 90
+1: 1
+1234: 0
+: 0
+Seger: 0
+Seger: 0
+Seger2: 0
+Seger2: 0
+Thanks for playing!
+Play again(y/n): y
+Restarting game
+Welcome to Kerkers en Draken! 
+Give player name: SDFLKJSDFLKJSDLKJSDF
+ > Look
+Welcome to Kerkers en Draken! 
+Give player name: Look
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > V
+Invalid action.
+Type 'Help' for a list of available actions.
+ > V
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 2 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 1 damage to player.
+Grote Rat dealt 2 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 1 damage to player.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat dealt 1 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+ > Wait
+Waiting...
+Grote Rat dealt 3 damage to player.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat missed attack.
+ > Wait
+Waiting...
+Grote Rat missed attack.
+Grote Rat dealt 3 damage to player.
+Player has died.
+Game over.
+Final score: 0
+High scores:
+adlfkj: 2234
+Test: 100
+Test2: 90
+1: 1
+1234: 0
+: 0
+Seger: 0
+Seger: 0
+Seger2: 0
+Seger2: 0
+Thanks for playing!
+Play again(y/n): y
+Welcome to Kerkers en Draken! 
+Give player name: Leuk hoor
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: Quit
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: asdlkja
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: Seger
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Suicide
+Game over.
+Final score: 0
+High scores:
+adlfkj: 2234
+Test: 100
+Test2: 90
+1: 1
+1234: 0
+: 0
+Seger: 0
+Seger: 0
+Seger2: 0
+Seger2: 0
+Thanks for playing!
+Play again(y/n): y
+Welcome to Kerkers en Draken! 
+Give player name: SDFLJSDFK
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer1
+
+ > Suicide
+Game over.
+Final score: 0
+High scores:
+adlfkj: 2234
+Test: 100
+Test2: 90
+1: 1
+1234: 0
+: 0
+Seger: 0
+Seger: 0
+Seger2: 0
+Seger2: 0
+Thanks for playing!
+Play again(y/n): n
+Welcome to Kerkers en Draken! 
+Give player name: asdflkjadsfkj
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Suicide
+Game over.
+Final score: 0
+High scores:
+adlfkj: 2234
+Test: 100
+Test2: 90
+1: 1
+1234: 0
+: 0
+Seger: 0
+Seger: 0
+Seger2: 0
+Seger2: 0
+Thanks for playing!
+Play again(y/n): n
+Welcome to Kerkers en Draken! 
+Give player name: sadflkjasdlkasdlfkjasldkfadsj
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Lok
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Suicide
+Game over.
+Final score: 0
+High scores:
+adlfkj: 2234
+Test: 100
+Test2: 90
+1: 1
+1234: 0
+: 0
+Seger: 0
+Seger: 0
+Seger2: 0
+Seger2: 0
+Thanks for playing!
+Play again(y/n): y
+Welcome to Kerkers en Draken! 
+Give player name: adsflkajsdflkasdflkjasdflkjqwerouasdfkjasdflkj
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer1
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel1
+
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: asdlkjasdflkj
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Lok
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: asdlkjasdf
+ > asdfkjadsfkj
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat
+
+Hidden objects:
+kleine buidel
+
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: Quit
+ > as;dlasd
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Quit
+Welcome to Kerkers en Draken! 
+Give player name: asdlkfjasldkfsadlkfaslkdjsdjflkasjladsjf
+ > Lok
+Invalid action.
+Type 'Help' for a list of available actions.
+ > Look
+Location id 1
+Location: Kasteelpoort
+Description: Je staat voor de poort van de ruine van een kasteel. De poorten staan open en het valhek is omhoog.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 2
+
+Enemies:
+
+Hidden objects:
+klein levenselixer
+
+ > Go North
+Moved to new location.
+ > Look
+Location id 2
+Location: Binnenplaats
+Description: Je staat op de binnenplaats van het kasteel. Aan de west en oostkant staat een toren. Noord is de Donjon te zien. De stal staat daar links van en de waterput rechts.
+
+Visible objects:
+
+Exits:
+North
+Location ID: 8
+East
+Location ID: 3
+South
+Location ID: 1
+West
+Location ID: 4
+
+Enemies:
+Grote Rat
+Grote Rat1
+
+Hidden objects:
+kleine buidel
+
+ > Quit

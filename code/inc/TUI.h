@@ -2,6 +2,7 @@
 #define TUI_H
 
 #include "Game.h"
+#include "Log.h"
 #include "Player.h"
 #include "String.h"
 
@@ -12,7 +13,9 @@ public:
     ~TUI();
 
     void init();
-    void run();
+    void endOfGame();
+    void startup();
+    bool run();
 
 private:
     void printPrompt();
@@ -31,6 +34,7 @@ private:
     void wait();
     void consume(String item);
     void godmode();
+    void suicide();
 
     void createGameFromFile();
 
@@ -47,14 +51,18 @@ private:
 private:
     String getInput();
 
+    void addScoreToDB();
+    void displayHighScores();
     void runEnemyTurns();
 
 private:
+    Log log;
     Game game;
     Player player;
 
     std::string xmlFilename = "";
     bool running;
+    bool restart;
 };
 
 #endif // TUI_H

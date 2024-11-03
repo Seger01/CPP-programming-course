@@ -15,9 +15,9 @@
 #include "TeleportationPotionObject.h"
 #include "WeaponObject.h"
 
-TUI::TUI() { init(); }
+TUI::TUI() : log("logfile.txt") { init(); }
 
-TUI::TUI(std::string filename) : xmlFilename(filename) { init(); }
+TUI::TUI(std::string filename) : xmlFilename(filename), log("logfile.txt") { init(); }
 
 TUI::~TUI() {}
 
@@ -27,15 +27,6 @@ void TUI::init() {
 
     game = Game();
     game.start();
-    int amountOfRooms = 10;
-
-    if (xmlFilename != "") {
-        std::cout << "Creating game from file: " << xmlFilename << std::endl;
-        createGameFromFile();
-
-    } else {
-        game.generateDungeon(amountOfRooms);
-    }
 
     player = Player();
 
@@ -43,23 +34,83 @@ void TUI::init() {
 
     player.addObject(std::unique_ptr<GameObject>(object));
     player.setEquippedWeapon(object->getName());
+
+    if (xmlFilename != "") {
+        createGameFromFile();
+
+    } else {
+        int amountOfRooms = 10;
+        game.generateDungeon(amountOfRooms);
+    }
 }
 
-void TUI::run() {
-    std::cout << "Welcome to Kerkers en Draken!" << std::endl;
+void TUI::startup() {
+    log << "Give player name: ";
 
+    String playerName = getInput();
+    log.addln(std::string(playerName.c_str()));
+
+    player.setName(playerName);
+}
+
+void TUI::addScoreToDB() {}
+
+void TUI::displayHighScores() {}
+
+void TUI::endOfGame() {
+    log << "Game over." << "\n";
+
+    log << "Final score: " << player.getGold() << "\n";
+
+    game.addScoreToDB(player.getName(), player.getGold());
+
+    Vector<Vector<String>> scores = game.getLeaderboardEntries();
+
+    log << "High scores:" << "\n";
+    for (int i = 0; i < scores.size(); i++) {
+        log << scores[i][1] << ": " << scores[i][2] << "\n";
+    }
+
+    log << "Thanks for playing!" << "\n";
+    log << "Play again(y/n): ";
+
+    String input = getInput();
+    log.addln(std::string(input.c_str()));
+
+    if (input == "y") {
+        restart = true;
+        running = false;
+    } else {
+        restart = false;
+        running = false;
+    }
+}
+
+bool TUI::run() {
+    log << "Welcome to Kerkers en Draken! \n";
+
+    startup();
+
+    restart = false;
     running = true;
 
     while (running) {
         printPrompt();
         handleInput();
+
+        if (player.getHealth() <= 0) {
+            endOfGame();
+        }
     }
+
+    return restart;
 }
 
-void TUI::printPrompt() { std::cout << " > "; }
+void TUI::printPrompt() { log << " > "; }
 
 void TUI::handleInput() {
     String input = getInput();
+    log.addln(std::string(input.c_str()));
 
     String action = input.getFirstWord();
 
@@ -86,71 +137,76 @@ void TUI::handleInput() {
         wait();
     } else if (action == "Consume") {
         consume(input);
+    } else if (action == "Suicide") {
+        suicide();
     } else if (action == "Godmode") {
         godmode();
     } else if (action == "Quit") {
         running = false;
     } else {
-        std::cout << "Invalid action." << std::endl;
-        std::cout << "Type 'Help' for a list of available actions." << std::endl;
+        log << "Invalid action." << "\n";
+        log << "Type 'Help' for a list of available actions." << "\n";
     }
 }
+
+void TUI::suicide() { player.setHealth(0); }
 
 void TUI::look(String item) {
     Location* currentLocation = game.getCurrentLocation();
     if (currentLocation == nullptr) {
         return;
     }
-    std::cout << "Location id " << currentLocation->getID() << std::endl;
-    std::cout << "Location: " << currentLocation->getName() << std::endl;
-    std::cout << "Description: " << currentLocation->getDescription() << std::endl;
-    std::cout << std::endl;
+    log << "Location id " << currentLocation->getID() << "\n";
+    log << "Location: " << currentLocation->getName() << "\n";
+    log << "Description: " << currentLocation->getDescription() << "\n";
+    log << "\n";
 
-    std::cout << "Visible objects:" << std::endl;
+    log << "Visible objects:" << "\n";
     for (int i = 0; i < currentLocation->getVisibleObjects().size(); i++) {
-        std::cout << currentLocation->getVisibleObjects()[i]->getName() << std::endl;
+        log << currentLocation->getVisibleObjects()[i]->getName() << "\n";
     }
-    std::cout << std::endl;
+    log << "\n";
 
-    std::cout << "Exits:" << std::endl;
+    log << "Exits:" << "\n";
     for (int i = 0; i < currentLocation->getExits().size(); i++) {
         if (currentLocation->getExits()[i] != -1) {
             switch (i) {
             case 0:
-                std::cout << "North" << std::endl;
+                log << "North" << "\n";
                 break;
             case 1:
-                std::cout << "East" << std::endl;
+                log << "East" << "\n";
                 break;
             case 2:
-                std::cout << "South" << std::endl;
+                log << "South" << "\n";
                 break;
             case 3:
-                std::cout << "West" << std::endl;
+                log << "West" << "\n";
                 break;
             }
+            log << "Location ID: " << currentLocation->getExits()[i] << "\n";
         }
     }
-    std::cout << std::endl;
+    log << "\n";
 
-    std::cout << "Enemies:" << std::endl;
+    log << "Enemies:" << "\n";
     for (int i = 0; i < currentLocation->getEnemies().size(); i++) {
         if (currentLocation->getEnemies()[i]->getHealth() == 0) {
-            std::cout << "Defeated ";
+            log << "Defeated ";
         }
-        std::cout << currentLocation->getEnemies()[i]->getName() << std::endl;
+        log << currentLocation->getEnemies()[i]->getName() << "\n";
     }
-    std::cout << std::endl;
+    log << "\n";
 
-    std::cout << "Hidden objects:" << std::endl;
+    log << "Hidden objects:" << "\n";
     for (int i = 0; i < currentLocation->getHiddenObjects().size(); i++) {
-        std::cout << currentLocation->getHiddenObjects()[i]->getName() << std::endl;
+        log << currentLocation->getHiddenObjects()[i]->getName() << "\n";
     }
-    std::cout << std::endl;
+    log << "\n";
 }
 
 void TUI::search(String item) {
-    std::cout << "Searched" << item << std::endl;
+    log << "Searched" << item << "\n";
 
     while (game.getCurrentLocation()->getHiddenObjects().size() > 0) {
         GameObject* object = game.getCurrentLocation()->getHiddenObjects()[0];
@@ -188,24 +244,24 @@ void TUI::go(String direction) {
             directionFound = true;
         }
     } else {
-        std::cout << "Invalid direction." << std::endl;
+        log << "Invalid direction." << "\n";
     }
 
     if (directionFound) {
         runEnemyTurns();
 
         game.setNewCurrentLocation(newLocation);
-        std::cout << "Moved to new location." << std::endl;
+        log << "Moved to new location." << "\n";
     }
 }
 
 void TUI::take(String item) {
-    std::cout << "Taking " << item << std::endl;
+    log << "Taking " << item << "\n";
 
     std::unique_ptr<GameObject> gameObject(game.takeObject(item));
 
     if (gameObject != nullptr) {
-        std::cout << "Adding " << gameObject->getName() << " to inventory." << std::endl;
+        log << "Adding " << gameObject->getName() << " to inventory." << "\n";
         player.addObject(std::move(gameObject));
     }
 }
@@ -223,45 +279,45 @@ void TUI::drop(String item) {
 
 void TUI::inspect(String item) {
     if (item == "Self") {
-        std::cout << "  Player stats:" << std::endl;
-        std::cout << "  Health: " << player.getHealth() << std::endl;
-        std::cout << "  Attack chance: " << player.getHitChancePercent() << "%" << std::endl;
-        std::cout << "  Gold: " << player.getGold() << std::endl;
+        log << "  Player stats:" << "\n";
+        log << "  Health: " << player.getHealth() << "\n";
+        log << "  Attack chance: " << player.getHitChancePercent() << "%" << "\n";
+        log << "  Gold: " << player.getGold() << "\n";
 
-        std::cout << std::endl;
+        log << "\n";
 
         if (player.getEquippedWeapon() != nullptr) {
-            std::cout << "  Equipped weapon: " << player.getEquippedWeapon()->getName() << std::endl;
+            log << "  Equipped weapon: " << player.getEquippedWeapon()->getName() << "\n";
         } else {
-            std::cout << "  Equipped weapon: None" << std::endl;
+            log << "  Equipped weapon: None" << "\n";
         }
         if (player.getEquippedArmor() != nullptr) {
-            std::cout << "  Equipped armor: " << player.getEquippedArmor()->getName() << std::endl;
+            log << "  Equipped armor: " << player.getEquippedArmor()->getName() << "\n";
         } else {
-            std::cout << "  Equipped armor: None" << std::endl;
+            log << "  Equipped armor: None" << "\n";
         }
 
-        std::cout << std::endl;
+        log << "\n";
 
-        std::cout << "  Inventory:" << std::endl;
+        log << "  Inventory:" << "\n";
         for (int i = 0; i < player.getInventory().size(); i++) {
-            std::cout << "      " << player.getInventory()[i]->getName() << std::endl;
+            log << "      " << player.getInventory()[i]->getName() << "\n";
         }
     } else {
         Vector<GameObject*>& currentVisibleObjects = game.getCurrentLocation()->getVisibleObjects();
         for (int i = 0; i < currentVisibleObjects.size(); i++) {
             if (currentVisibleObjects[i]->getName() == item) {
-                std::cout << currentVisibleObjects[i]->getName() << std::endl;
-                std::cout << currentVisibleObjects[i]->getDescription() << std::endl;
+                log << currentVisibleObjects[i]->getName() << "\n";
+                log << currentVisibleObjects[i]->getDescription() << "\n";
                 if (currentVisibleObjects[i]->getMin() == 0 && currentVisibleObjects[i]->getMax() == 0) {
-                    std::cout << "Value: " << currentVisibleObjects[i]->getValue() << std::endl;
+                    log << "Value: " << currentVisibleObjects[i]->getValue() << "\n";
                 } else {
-                    std::cout << "Min: " << currentVisibleObjects[i]->getMin() << std::endl;
-                    std::cout << "Max: " << currentVisibleObjects[i]->getMax() << std::endl;
+                    log << "Min: " << currentVisibleObjects[i]->getMin() << "\n";
+                    log << "Max: " << currentVisibleObjects[i]->getMax() << "\n";
                 }
 
                 if (dynamic_cast<ArmorObject*>(currentVisibleObjects[i])) {
-                    std::cout << "Protection: " << currentVisibleObjects[i]->getValue() << std::endl;
+                    log << "Protection: " << currentVisibleObjects[i]->getValue() << "\n";
                 }
                 return;
             }
@@ -272,17 +328,17 @@ void TUI::inspect(String item) {
         std::vector<std::unique_ptr<GameObject>>& inventory = player.getInventory();
         for (int i = 0; i < inventory.size(); i++) {
             if (inventory[i]->getName() == item) {
-                std::cout << inventory[i]->getName() << std::endl;
-                std::cout << inventory[i]->getDescription() << std::endl;
+                log << inventory[i]->getName() << "\n";
+                log << inventory[i]->getDescription() << "\n";
                 if (inventory[i]->getMin() == 0 && inventory[i]->getMax() == 0) {
-                    std::cout << "Value: " << inventory[i]->getValue() << std::endl;
+                    log << "Value: " << inventory[i]->getValue() << "\n";
                 } else {
-                    std::cout << "Min: " << inventory[i]->getMin() << std::endl;
-                    std::cout << "Max: " << inventory[i]->getMax() << std::endl;
+                    log << "Min: " << inventory[i]->getMin() << "\n";
+                    log << "Max: " << inventory[i]->getMax() << "\n";
                 }
 
                 if (dynamic_cast<ArmorObject*>(inventory[i].get())) {
-                    std::cout << "Protection: " << inventory[i]->getValue() << std::endl;
+                    log << "Protection: " << inventory[i]->getValue() << "\n";
                 }
                 return;
             }
@@ -290,17 +346,17 @@ void TUI::inspect(String item) {
 
         // check if item is equipped weapon or armor
         if (player.getEquippedWeapon() != nullptr && player.getEquippedWeapon()->getName() == item) {
-            std::cout << player.getEquippedWeapon()->getName() << std::endl;
-            std::cout << player.getEquippedWeapon()->getDescription() << std::endl;
-            std::cout << "Min: " << player.getEquippedWeapon()->getMin() << std::endl;
-            std::cout << "Max: " << player.getEquippedWeapon()->getMax() << std::endl;
+            log << player.getEquippedWeapon()->getName() << "\n";
+            log << player.getEquippedWeapon()->getDescription() << "\n";
+            log << "Min: " << player.getEquippedWeapon()->getMin() << "\n";
+            log << "Max: " << player.getEquippedWeapon()->getMax() << "\n";
             return;
         }
 
         if (player.getEquippedArmor() != nullptr && player.getEquippedArmor()->getName() == item) {
-            std::cout << player.getEquippedArmor()->getName() << std::endl;
-            std::cout << player.getEquippedArmor()->getDescription() << std::endl;
-            std::cout << "Protection: " << player.getEquippedArmor()->getValue() << std::endl;
+            log << player.getEquippedArmor()->getName() << "\n";
+            log << player.getEquippedArmor()->getDescription() << "\n";
+            log << "Protection: " << player.getEquippedArmor()->getValue() << "\n";
             return;
         }
 
@@ -309,9 +365,9 @@ void TUI::inspect(String item) {
         for (int i = 0; i < currentEnemies.size(); i++) {
             if (currentEnemies[i]->getName() == item) {
                 if (currentEnemies[i]->getHealth() == 0) {
-                    std::cout << "Defeated " << currentEnemies[i]->getName() << std::endl;
-                    std::cout << currentEnemies[i]->getDescription() << std::endl;
-                    std::cout << "Moving hidden items from enemy to visible objects in the location." << std::endl;
+                    log << "Defeated " << currentEnemies[i]->getName() << "\n";
+                    log << currentEnemies[i]->getDescription() << "\n";
+                    log << "Moving hidden items from enemy to visible objects in the location." << "\n";
 
                     // Move hidden items from enemy to visible objects in the location
                     while (currentEnemies[i]->getInventory().size() > 0) {
@@ -321,12 +377,12 @@ void TUI::inspect(String item) {
                     }
                     return;
                 } else {
-                    std::cout << currentEnemies[i]->getName() << std::endl;
-                    std::cout << currentEnemies[i]->getDescription() << std::endl;
-                    std::cout << "Health: " << currentEnemies[i]->getHealth() << std::endl;
-                    std::cout << "Hit chance: " << currentEnemies[i]->getHitChancePercent() << "%" << std::endl;
-                    std::cout << "Min damage: " << currentEnemies[i]->getMinDamage() << std::endl;
-                    std::cout << "Max damage: " << currentEnemies[i]->getMaxDamage() << std::endl;
+                    log << currentEnemies[i]->getName() << "\n";
+                    log << currentEnemies[i]->getDescription() << "\n";
+                    log << "Health: " << currentEnemies[i]->getHealth() << "\n";
+                    log << "Hit chance: " << currentEnemies[i]->getHitChancePercent() << "%" << "\n";
+                    log << "Min damage: " << currentEnemies[i]->getMinDamage() << "\n";
+                    log << "Max damage: " << currentEnemies[i]->getMaxDamage() << "\n";
                     return;
                 }
             }
@@ -335,31 +391,31 @@ void TUI::inspect(String item) {
 }
 
 void TUI::attack(String enemy) {
-    std::cout << "Attacking " << enemy << std::endl;
+    log << "Attacking " << enemy << "\n";
 
     Vector<Enemy*>& currentEnemies = game.getCurrentLocation()->getEnemies();
     for (int i = 0; i < currentEnemies.size(); i++) {
         if (currentEnemies[i]->getName() == enemy) {
             if (player.getEquippedWeapon() != nullptr) {
                 if (Random::getInstance().generateIntInRange(0, 100) > player.getHitChancePercent()) {
-                    std::cout << "Missed attack." << std::endl;
+                    log << "Missed attack." << "\n";
                     break;
                 }
                 int damage = Random::getInstance().generateIntInRange(player.getEquippedWeapon()->getMin(),
                                                                       player.getEquippedWeapon()->getMax());
                 currentEnemies[i]->setHealth(currentEnemies[i]->getHealth() - damage);
-                std::cout << "Dealt " << damage << " damage to " << currentEnemies[i]->getName() << std::endl;
+                log << "Dealt " << damage << " damage to " << currentEnemies[i]->getName() << "\n";
                 if (currentEnemies[i]->getHealth() <= 0) {
-                    std::cout << "Defeated " << currentEnemies[i]->getName() << std::endl;
+                    log << "Defeated " << currentEnemies[i]->getName() << "\n";
                     currentEnemies[i]->setHealth(0);
                 }
             } else {
-                std::cout << "No weapon equipped." << std::endl;
+                log << "No weapon equipped." << "\n";
             }
             break;
         }
         if (i == currentEnemies.size() - 1) {
-            std::cout << "Enemy not found." << std::endl;
+            log << "Enemy not found." << "\n";
         }
     }
 
@@ -382,17 +438,17 @@ void TUI::equip(String item) {
         }
     }
 
-    std::cout << "Equipping " << item << std::endl;
+    log << "Equipping " << item << "\n";
 }
 
 void TUI::wait() {
-    std::cout << "Waiting..." << std::endl;
+    log << "Waiting..." << "\n";
 
     runEnemyTurns();
 }
 
 void TUI::consume(String item) {
-    std::cout << "Consuming " << item << std::endl;
+    log << "Consuming " << item << "\n";
 
     std::vector<std::unique_ptr<GameObject>>& inventory = player.getInventory();
     for (int i = 0; i < inventory.size(); i++) {
@@ -401,7 +457,7 @@ void TUI::consume(String item) {
                 int healthRestored =
                     Random::getInstance().generateIntInRange(inventory[i]->getMin(), inventory[i]->getMax());
                 player.setHealth(player.getHealth() + healthRestored);
-                std::cout << "Restored " << healthRestored << " health points." << std::endl;
+                log << "Restored " << healthRestored << " health points." << "\n";
                 player.removeObject(inventory[i]);
                 return;
             } else if (dynamic_cast<ExperiencePotionObject*>(inventory[i].get())) {
@@ -409,20 +465,20 @@ void TUI::consume(String item) {
                 if (hitChancePercent < 90) {
                     player.setHitChancePercent(hitChancePercent + Random::getInstance().generateIntInRange(
                                                                       inventory[i]->getMin(), inventory[i]->getMax()));
-                    std::cout << "Increased attack chance" << std::endl;
+                    log << "Increased attack chance" << "\n";
 
                     player.removeObject(inventory[i]);
                 } else {
-                    std::cout << "Attack chance already at maximum." << std::endl;
+                    log << "Attack chance already at maximum." << "\n";
                 }
                 return;
             } else if (dynamic_cast<TeleportationPotionObject*>(inventory[i].get())) {
-                std::cout << "Teleporting to a random location." << std::endl;
+                log << "Teleporting to a random location." << "\n";
                 game.setNewCurrentLocation(Random::getInstance().generateIntInRange(0, game.amountOfLocations() - 1));
                 player.removeObject(inventory[i]);
                 return;
             } else {
-                std::cout << "Consumed " << item << std::endl;
+                log << "Consumed " << item << "\n";
                 return;
             }
         }
@@ -432,7 +488,7 @@ void TUI::consume(String item) {
 }
 
 void TUI::godmode() {
-    std::cout << "God mode activated!" << std::endl;
+    log << "God mode activated!" << "\n";
 
     player.setHealth(99999999);
     player.setHitChancePercent(100);
@@ -440,56 +496,49 @@ void TUI::godmode() {
 
 void TUI::createGameFromFile() {
     LocationParser parser(xmlFilename);
-    std::cout << "Parsing XML file: " << xmlFilename << std::endl;
     std::vector<Location*> locations = parser.parse();
-    std::cout << "Done parsing XML file." << std::endl;
     Vector<Location*> newLocations;
 
     for (int i = 0; i < locations.size(); i++) {
         newLocations.push_back(locations[i]);
     }
 
-    std::cout << "Setting locations." << std::endl;
-
     game.setLocations(newLocations);
 }
 
 void TUI::printHelp() {
-    std::cout << "  Available Actions:\n";
-    std::cout << "  Look : Shows the location's description with visible objects, all possible exits, and any enemies "
-                 "present.\n";
-    std::cout << "  Search* : Moves hidden objects in the current location to visible objects, except those associated "
-                 "with enemies here.\n";
-    std::cout
-        << "  Go <north|south|east|west>* : If there's an exit in the chosen direction, move there. If enemies are "
+    log << "  Available Actions:\n";
+    log << "  Look : Shows the location's description with visible objects, all possible exits, and any enemies "
+           "present.\n";
+    log << "  Search* : Moves hidden objects in the current location to visible objects, except those associated "
+           "with enemies here.\n";
+    log << "  Go <north|south|east|west>* : If there's an exit in the chosen direction, move there. If enemies are "
            "present, they each attack once before moving.\n";
-    std::cout
-        << "  Take <OBJECT> : Moves a visible object from the location to the player. For 'gold coins', add to the "
+    log << "  Take <OBJECT> : Moves a visible object from the location to the player. For 'gold coins', add to the "
            "player’s total and delete the object.\n";
-    std::cout << "  Drop <OBJECT> : Moves an object from the player to visible objects in the current location.\n";
-    std::cout << "  Inspect <OBJECT> : Shows description of the object if visible in the location or held by the "
-                 "player.\n";
-    std::cout << "  Inspect <ENEMY> :\n";
-    std::cout << "    If enemy has health: Shows the enemy's description (if present in the location).\n";
-    std::cout << "    If enemy has 0 health: Shows the description, and moves hidden items from the enemy to visible "
-                 "objects in the location.\n";
-    std::cout << "  Inspect Self : Displays player stats: health, attack chance, gold, equipped weapon, armor, and "
-                 "inventory.\n";
-    std::cout << "  Attack <ENEMY>* : Attack the specified enemy with the equipped weapon.\n";
-    std::cout
-        << "  Equip <OBJECT:ARMOR>* : If player owns the armor, equip it. Previously worn armor becomes a visible "
+    log << "  Drop <OBJECT> : Moves an object from the player to visible objects in the current location.\n";
+    log << "  Inspect <OBJECT> : Shows description of the object if visible in the location or held by the "
+           "player.\n";
+    log << "  Inspect <ENEMY> :\n";
+    log << "    If enemy has health: Shows the enemy's description (if present in the location).\n";
+    log << "    If enemy has 0 health: Shows the description, and moves hidden items from the enemy to visible "
+           "objects in the location.\n";
+    log << "  Inspect Self : Displays player stats: health, attack chance, gold, equipped weapon, armor, and "
+           "inventory.\n";
+    log << "  Attack <ENEMY>* : Attack the specified enemy with the equipped weapon.\n";
+    log << "  Equip <OBJECT:ARMOR>* : If player owns the armor, equip it. Previously worn armor becomes a visible "
            "object in the location.\n";
-    std::cout << "  Equip <OBJECT:WEAPON> : If player owns the weapon, equip it. Previously held weapon becomes a "
-                 "visible object in the location.\n";
-    std::cout << "  Wait* : Skip the turn. Enemies may attack and move.\n";
-    std::cout << "  Consume <OBJECT:CONSUMABLE> : Effects vary based on potion type:\n";
-    std::cout << "    Health Elixir: Restores 5-15 health points.\n";
-    std::cout << "    Experience Potion: Increases attack chance by +10%, up to 90% max.\n";
-    std::cout << "    Teleportation Potion: Teleports player to a random location.\n";
-    std::cout << "  Help : Shows this list of available actions.\n";
-    std::cout << "  Godmode : Toggles 'godmode' where player cannot lose health or miss attacks.\n";
-    std::cout << "  Quit : Ends the game and closes the application properly to reveal any memory leaks.\n";
-    std::cout << "\n* Indicates an action that ends the player's turn.\n";
+    log << "  Equip <OBJECT:WEAPON> : If player owns the weapon, equip it. Previously held weapon becomes a "
+           "visible object in the location.\n";
+    log << "  Wait* : Skip the turn. Enemies may attack and move.\n";
+    log << "  Consume <OBJECT:CONSUMABLE> : Effects vary based on potion type:\n";
+    log << "    Health Elixir: Restores 5-15 health points.\n";
+    log << "    Experience Potion: Increases attack chance by +10%, up to 90% max.\n";
+    log << "    Teleportation Potion: Teleports player to a random location.\n";
+    log << "  Help : Shows this list of available actions.\n";
+    log << "  Godmode : Toggles 'godmode' where player cannot lose health or miss attacks.\n";
+    log << "  Quit : Ends the game and closes the application properly to reveal any memory leaks.\n";
+    log << "\n* Indicates an action that ends the player's turn.\n";
 }
 
 void TUI::runEnemyTurns() {
@@ -500,7 +549,7 @@ void TUI::runEnemyTurns() {
         if (currentEnemies[i]->getHealth() > 0) {
             // enemy attacks player
             if (Random::getInstance().generateIntInRange(0, 100) > currentEnemies[i]->getHitChancePercent()) {
-                std::cout << currentEnemies[i]->getName() << " missed attack." << std::endl;
+                log << currentEnemies[i]->getName() << " missed attack." << "\n";
             } else {
                 int damage = Random::getInstance().generateIntInRange(currentEnemies[i]->getMinDamage(),
                                                                       currentEnemies[i]->getMaxDamage());
@@ -512,7 +561,12 @@ void TUI::runEnemyTurns() {
                 }
 
                 player.setHealth(player.getHealth() - damage);
-                std::cout << currentEnemies[i]->getName() << " dealt " << damage << " damage to player." << std::endl;
+                log << currentEnemies[i]->getName() << " dealt " << damage << " damage to player." << "\n";
+
+                if (player.getHealth() <= 0) {
+                    log << "Player has died." << "\n";
+                    return;
+                }
             }
         }
     }

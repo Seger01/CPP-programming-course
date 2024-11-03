@@ -17,6 +17,10 @@ public:
     int getMinDamage() const;
     int getMaxDamage() const;
 
+    void setName(String name);
+
+    void setData(String name, String description, int health, int hitChancePercent, int minDamage, int maxDamage);
+
     Vector<GameObject*>& getInventory();
     void addObject(GameObject* gameObject);
     void removeObject(GameObject* gameObject);

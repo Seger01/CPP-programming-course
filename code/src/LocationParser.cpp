@@ -44,16 +44,16 @@ std::vector<Location*> LocationParser::parse() {
 
 void LocationParser::parseExits(XMLElement* locElement, Location* location) {
     if (locElement->Attribute("noord")) {
-        location->addExit(locElement->IntAttribute("noord"), NORTH);
+        location->addExit(locElement->IntAttribute("noord", -1), NORTH);
     }
     if (locElement->Attribute("oost")) {
-        location->addExit(locElement->IntAttribute("oost"), EAST);
+        location->addExit(locElement->IntAttribute("oost", -1), EAST);
     }
     if (locElement->Attribute("zuid")) {
-        location->addExit(locElement->IntAttribute("zuid"), SOUTH);
+        location->addExit(locElement->IntAttribute("zuid", -1), SOUTH);
     }
     if (locElement->Attribute("west")) {
-        location->addExit(locElement->IntAttribute("west"), WEST);
+        location->addExit(locElement->IntAttribute("west", -1), WEST);
     }
 }
 

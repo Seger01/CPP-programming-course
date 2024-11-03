@@ -19,16 +19,15 @@
 // file path
 int main(int argc, char* argv[]) {
     // check if the input argument is not provided
+    std::string filename;
     if (argc < 2) {
         // print the error message
-        std::cerr << "Usage: " << argv[0] << " FILE_PATH" << std::endl;
-        // return 1 to indicate the error
-        return 1;
+        filename = "";
+    } else {
+        filename = argv[1];
+        // print the file path
+        std::cout << "File path: " << filename << std::endl;
     }
-
-    // print the file path
-    std::string filename = argv[1];
-    std::cout << "File path: " << filename << std::endl;
 
     {
         ArmorObject armorObject;
@@ -39,9 +38,15 @@ int main(int argc, char* argv[]) {
         ExperiencePotionObject experiencePotionObject;
     }
 
-    TUI tui(filename);
+    bool restart = false;
 
-    tui.run();
+    while (true) {
+        TUI tui(filename);
+
+        if (!tui.run()) {
+            break;
+        }
+    }
 
     return 0;
 }
