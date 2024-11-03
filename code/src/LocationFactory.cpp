@@ -2,6 +2,6 @@
 
 LocationFactory::LocationFactory() {}
 
-Location* LocationFactory::createLocation(const char* name, const char* description) {
-    return new Location(name, description);
+Location* LocationFactory::createLocation(String name, String description) {
+    return new Location(0, name, description);
 }

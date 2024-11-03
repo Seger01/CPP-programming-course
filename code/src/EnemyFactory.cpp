@@ -2,6 +2,7 @@
 
 EnemyFactory::EnemyFactory() {}
 
-Enemy* EnemyFactory::createEnemy(const char* name, const char* description, int health, int damage, int experience) {
-    return new Enemy(name, description, health, damage, experience);
+Enemy* EnemyFactory::createEnemy(String name, String description, int health, int hitChancePercent, int minDamage,
+                                 int maxDamage) {
+    return new Enemy(name, description, health, hitChancePercent, minDamage, maxDamage);
 }

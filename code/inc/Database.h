@@ -8,7 +8,7 @@
 
 class Database {
 public:
-    Database(const char* dbName);
+    Database(String dbName); // Use custom String
     ~Database();
 
     bool open();

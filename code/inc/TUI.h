@@ -2,6 +2,7 @@
 #define TUI_H
 
 #include "Game.h"
+#include "Player.h"
 #include "String.h"
 
 class TUI {
@@ -42,6 +43,7 @@ private:
 
 private:
     Game game;
+    Player player;
 
     bool running;
 };

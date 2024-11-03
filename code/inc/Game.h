@@ -16,6 +16,16 @@ public:
     void update();
 
     void generateDungeon(int amountOfRooms);
+    Location* getCurrentLocation();
+
+    int amountOfLocations();
+
+    void setNewCurrentLocation(int newLocation);
+
+    GameObject* takeObject(String objectName);
+
+    void runEnemyTurns();
+
     // void look(String item);
     // void search(String item);
     // void go(String direction);
@@ -28,9 +38,11 @@ public:
     // void consume(String item);
     // void godmode();
 
+    Vector<Vector<String>> getObjectInfo();
+
 private:
     Vector<Vector<String>> getRoomInfo();
-    Vector<Vector<String>> getObjectInfo();
+    Vector<Vector<String>> getEnemiesInfo();
     // Vector<String> getRandomRoom(Vector<Vector<String>>& roomInfo);
 
     int getRandomNumber(int min, int max);
@@ -38,6 +50,7 @@ private:
 private:
     Database db;
 
+    int currentLocation;
     Vector<Location*> locations;
 };
 

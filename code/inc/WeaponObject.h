@@ -5,11 +5,13 @@
 
 class WeaponObject : public GameObject {
 public:
-    WeaponObject(const char* name, const char* description, int minDamage, int maxDamage);
+    WeaponObject();
+    WeaponObject(String name, String description, int min, int max, int defense);
+
+    static GameObject* create();
 
 private:
-    int minDamage;
-    int maxDamage;
+    static const bool registered;
 };
 
 #endif // WEAPONOBJECT_H

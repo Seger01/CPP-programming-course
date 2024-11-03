@@ -2,7 +2,7 @@
 #include "String.h"
 #include <cstring>
 
-Database::Database(const char* dbName) : db(nullptr), dbName(dbName) {}
+Database::Database(String dbName) : db(nullptr), dbName(dbName) {}
 
 Database::~Database() { close(); }
 

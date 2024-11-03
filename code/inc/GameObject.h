@@ -6,22 +6,33 @@
 
 class GameObject {
 public:
+    GameObject();
     GameObject(String name, String description);
+    GameObject(String name, String description, int min, int max, int value);
 
-    virtual void printName() const;
-    virtual void printDescription() const;
+    virtual ~GameObject() {}
+
+    String& getName();
+    String& getDescription();
+
+    int getMin() const;
+    int getMax() const;
+    int getValue() const;
 
     static GameObject* create();
 
-    virtual void setData(String name, String description, int min = 0, int max = 0, int protection = 0);
+    virtual String getType() const { return type; }
+
+    virtual void setData(String name, String description, int min = 0, int max = 0, int value = 0);
 
 protected:
     String name;
     String description;
+    String type = "object";
 
     int min;
     int max;
-    int protection;
+    int value;
 };
 
 #endif // GAMEOBJECT_H

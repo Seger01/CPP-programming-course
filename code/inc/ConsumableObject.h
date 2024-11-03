@@ -5,7 +5,8 @@
 
 class ConsumableObject : public GameObject {
 public:
-    ConsumableObject(const char* name, const char* description);
+    ConsumableObject();
+    ConsumableObject(String name, String description, int min, int max, int value);
 };
 
 #endif // CONSUMABLEOBJECT_H

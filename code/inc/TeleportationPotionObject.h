@@ -5,7 +5,13 @@
 
 class TeleportationPotionObject : public ConsumableObject {
 public:
-    TeleportationPotionObject(const char* name, const char* description);
+    TeleportationPotionObject();
+    TeleportationPotionObject(String name, String description, int min, int max, int defense);
+
+    static GameObject* create();
+
+private:
+    static const bool registered;
 };
 
 #endif // TELEPORTATIONPOTIONOBJECT_H

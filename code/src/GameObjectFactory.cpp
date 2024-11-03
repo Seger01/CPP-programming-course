@@ -6,6 +6,13 @@ GameObject* GameObjectFactory::createObject(String id) const {
             return m_creators[i]();
         }
     }
+    std::cout << "No object with ID " << id << " found." << std::endl;
+    // list all registered objects
+    std::cout << "Registered objects: ";
+    for (int i = 0; i < m_ids.size(); ++i) {
+        std::cout << m_ids[i] << " ";
+    }
+
     return nullptr;
 }
 

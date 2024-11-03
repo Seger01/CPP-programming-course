@@ -5,10 +5,13 @@
 
 class HealthPotionObject : public ConsumableObject {
 public:
-    HealthPotionObject(const char* name, const char* description, int healAmount);
+    HealthPotionObject();
+    HealthPotionObject(String name, String description, int min, int max, int defense);
+
+    static GameObject* create();
 
 private:
-    int healAmount;
+    static const bool registered;
 };
 
 #endif // HEALTHPOTIONOBJECT_H

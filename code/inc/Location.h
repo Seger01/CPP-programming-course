@@ -12,6 +12,8 @@ public:
     Location(int ID, String name, String description);
     ~Location();
 
+    void revealObjects();
+
     void addExit(int locationID, int direction);
     void removeExit(int direction);
 
@@ -20,6 +22,12 @@ public:
 
     void removeHiddenObject(GameObject* object);
     void removeVisibleObject(GameObject* object);
+
+    Vector<GameObject*>& getVisibleObjects();
+    Vector<GameObject*>& getHiddenObjects();
+    Vector<Enemy*>& getEnemies();
+
+    Vector<int> getExits();
 
     void addEnemy(Enemy* enemy);
     void removeEnemy(Enemy* enemy);
@@ -38,7 +46,7 @@ private:
 
     int ID;
 
-    int exits[4];
+    Vector<int> exits;
 };
 
 #endif // LOCATION_H

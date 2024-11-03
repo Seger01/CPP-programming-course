@@ -1,11 +1,17 @@
 #include "Location.h"
+
 #include <cstring>
+
+#include "GameObject.h"
 
 Location::Location(int id, String name, String description) {
     this->name = name;
     this->description = description;
 
     this->ID = id;
+
+    for (int i = 0; i < 4; i++)
+        this->exits.push_back(-1);
 }
 
 Location::~Location() {
@@ -19,7 +25,13 @@ void Location::removeExit(int direction) { exits[direction] = -1; }
 
 void Location::addHiddenObject(GameObject* object) { hiddenObjects.push_back(object); }
 
-void Location::addVisibleObject(GameObject* object) { visibleObjects.push_back(object); }
+void Location::addVisibleObject(GameObject* object) {
+    visibleObjects.push_back(object);
+
+    for (int i = 0; i < visibleObjects.size(); ++i) {
+        std::cout << visibleObjects[i]->getName() << std::endl;
+    }
+}
 
 void Location::removeHiddenObject(GameObject* object) {
     for (int i = 0; i < hiddenObjects.size(); ++i) {
@@ -38,6 +50,14 @@ void Location::removeVisibleObject(GameObject* object) {
         }
     }
 }
+
+Vector<GameObject*>& Location::getVisibleObjects() { return visibleObjects; }
+
+Vector<GameObject*>& Location::getHiddenObjects() { return hiddenObjects; }
+
+Vector<Enemy*>& Location::getEnemies() { return enemies; }
+
+Vector<int> Location::getExits() { return exits; }
 
 void Location::addEnemy(Enemy* enemy) { enemies.push_back(enemy); }
 

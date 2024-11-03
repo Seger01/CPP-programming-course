@@ -6,7 +6,7 @@
 class EnemyFactory {
 public:
     EnemyFactory();
-    Enemy* createEnemy(const char* name, const char* description, int health, int damage, int experience);
+    Enemy* createEnemy(String name, String description, int health, int hitChancePercent, int minDamage, int maxDamage);
 };
 
 #endif // ENEMYFACTORY_H

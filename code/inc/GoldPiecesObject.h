@@ -5,10 +5,17 @@
 
 class GoldPiecesObject : public GameObject {
 public:
-    GoldPiecesObject(const char* name, const char* description, int value);
+    GoldPiecesObject();
+    GoldPiecesObject(String name, String description, int min, int max, int defense);
+
+    String getType() const override { return type; }
+
+    static GameObject* create();
 
 private:
-    int value;
+    String type = "goudstukken";
+
+    static const bool registered;
 };
 
 #endif // GOLDPIECESOBJECT_H

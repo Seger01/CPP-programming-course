@@ -5,13 +5,16 @@
 
 class ArmorObject : public GameObject {
 public:
-    ArmorObject(const char* name, const char* description, int defense);
+    ArmorObject();
+    ArmorObject(String name, String description, int min, int max, int defense);
 
     static GameObject* create();
 
+    String getType() const override { return type; }
+
 private:
+    String type = "wapenrusting";
     static const bool registered;
-    int defense;
 };
 
 #endif // ARMOROBJECT_H
